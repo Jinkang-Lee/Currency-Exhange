@@ -35,25 +35,25 @@ namespace Currency_Exchange.Controllers
         //This is what will happen when you click the button after creating new staff
         [HttpPost]
         [Authorize]
-        public IActionResult CreateStaff(Staff staff)
-        {
-            string userid = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            if (ModelState.IsValid)
-            {
-                string sql = @"INSERT INTO Staff
-                                            (staff_email, staff_name, ph_num)
-                                            VALUES ('{0}', '{1}', {2})";
+        //public IActionResult CreateStaff(Staff staff)
+        //{
+        //    string userid = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+        //    if (ModelState.IsValid)
+        //    {
+        //        string sql = @"INSERT INTO Staff
+        //                                    (staff_email, staff_name, ph_num)
+        //                                    VALUES ('{0}', '{1}', {2})";
 
-                if (DBUtl.ExecSQL(sql, staff.StudEmail, staff.StudName, staff.StudPhNum) == 1)
-                    TempData["Msg"] = "New staff Added!";
-                return RedirectToAction("ViewStaff");
-            }
-            else
-            {
-                TempData["Msg"] = "Invalid information entered!";
-                return RedirectToAction("Index");
-            }
-        }
+        //        if (DBUtl.ExecSQL(sql, staff.StudEmail, staff.StudName, staff.StudPhNum) == 1)
+        //            TempData["Msg"] = "New staff Added!";
+        //        return RedirectToAction("ViewStaff");
+        //    }
+        //    else
+        //    {
+        //        TempData["Msg"] = "Invalid information entered!";
+        //        return RedirectToAction("Index");
+        //    }
+        //}
 
 
 
