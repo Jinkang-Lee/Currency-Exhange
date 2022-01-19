@@ -2,33 +2,64 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Currency Exchange</title> <!-- style sheets references -->
-<link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
-<link href="~/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" /> <!-- script files references -->
-<script src="~/lib/jquery/jquery.min.js"></script>
-<script src="~/lib/bootstrap/js/bootstrap.min.js"></script>
-<script src="~/lib/jquery/jquery.validate.min.js"></script>
-<script src="~/lib/jquery/jquery.validate.unobtrusive.min.js"></script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Currency Exchange</title> <!-- style sheets references -->
+
+    <link rel="stylesheet" href="~/css/HomePage.css" />
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <link href="~/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" /> <!-- script files references -->
+    <script src="~/lib/jquery/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/lib/jquery/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery/jquery.validate.unobtrusive.min.js"></script>
 </head>
 <body>
 
-    <!--Buttons for Staff and Admin login-->
 
-    <!-- <form method="get" action="/StudentAccount/GetOTP">
+    
 
-            <div class="col-sm-6" id="student-button">
-                <button class="btn btn-primary btn-toolbar btn-lg" type="submit">Staff</button>
+
+
+    <section id="banner" class="main-area">
+        <div class="container">
+            <div class="row">
+                <!--Text to intro what is this website about-->
+                <div class="col-md-6 text-center" id="text-in">
+                    <h2 class="text-on-top">- CURRENCY EXCHANGE -</h2>
+                    <p>
+                        This website is developed for users to perform currency exchange.
+                    </p>
+                    <p>Click either "Student" or "Admin" to begin!</p>
+                </div>
+
+                <!--Image beside the text-->
+                <div class="offset-sm-1  col-md-5" id="top-image">
+                    <img src="~/images/Wallet.png" class="img-fluid" />
+                </div>
             </div>
-        </form> -->
 
-        <form method="get" action="/AdminAccount/Login">
-            <div class="col-sm-6" id="admin-button">
-                <button class="btn btn-primary btn-toolbar btn-lg" type="submit">Admin Login</button>
+            <div class="row">
+                @* Admin Login Button *@
+                <form method="get" action="/AdminAccount/Login">
+                    <div class="col-sm" id="admin-button">
+                        <button class="btn btn-primary btn-toolbar btn-lg" type="submit">Admin Login</button>
+                    </div>
+                </form>
+
+                @* Student Login Button *@
+                @* NOT IMPLEMENTED *@
+                <form method="get" action="/StaffAccount/Login">
+                    <div class="col-sm" id="staff-button">
+                        <button class="btn btn-primary btn-toolbar btn-lg" type="submit">Staff Login</button>
+                    </div>
+                </form>
             </div>
-        </form>
+        </div>
+    </section>
+        
     </body>
     </html>
 
