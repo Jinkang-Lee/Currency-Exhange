@@ -1,0 +1,62 @@
+﻿@model Staff
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Currency Exchange</title>
+
+    <!-- style sheets references -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <!--INSERT CSS FILE HERE-->
+    <link href="~/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- script files references -->
+    <script src="~/lib/jquery/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/lib/jquery/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery/jquery.validate.unobtrusive.min.js"></script>
+
+</head>
+
+
+<body>
+
+    <section id="banner" class="main-area">
+
+        <div class="container" id="Create-Staff-Container">
+
+            
+            <!--THESE 3 FIELDS ARE FOR ADMIN TO FILL IN WHEN THEY WANNA CREATE A NEW STAFF-->
+            <h1>Create Staff</h1>
+            <div class="row">
+                <form method="post" action="/Admin/CreateStaff">
+                    <div class="form-group">
+                        <input asp-for="StaffName" style="font-size: 20px; margin-top: 80px;" class="form-control" placeholder="Staff Name" />
+                        <span asp-validation-for="StaffName" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <input asp-for="StaffEmail" style="font-size: 20px; margin-top: 10px;" class="form-control" placeholder="Staff Email" />
+                        <span asp-validation-for="StaffEmail" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <input asp-for="StaffPhNum" style="font-size: 20px; margin-top: 10px;" class="form-control" placeholder="Staff Phone" />
+                        <span asp-validation-for="StaffPhNum" class="text-danger"></span>
+                    </div>
+
+
+                    <!--THIS IS THE SUBMIT BUTTON THEY CLICK ON TO CREATE NEW STAFF-->
+                    <div class="form-group">
+                        <input type="submit" style="margin-left: 200px;" class="btn btn-lg btn-primary" value="Create Staff" />
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>
