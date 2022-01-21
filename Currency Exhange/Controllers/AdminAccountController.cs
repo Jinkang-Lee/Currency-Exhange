@@ -12,15 +12,32 @@ using UserLogin.Models;
 
 namespace Currency_Exchange.Controllers
 {
+    [Authorize(AuthenticationSchemes = "AdminAccount")]
     public class AdminAccountController : Controller
     {
-        
-        
+        //For signing in
+        private const string AUTHSCHEME = "AdminAccount";
+
         private const string LOGIN_VIEW = "Login";
+
+        //To check sign in credentials
+        private const string LOGIN_SQL =
+           @"SELECT * FROM CurrencyRate
+            WHERE UserId = '{0}' 
+              AND UserPw = HASHBYTES('SHA1', '{1}')";
+
+        //For checking last login 
+        private const string LASTLOGIN_SQL =
+           @"UPDATE SRUser SET LastLogin=GETDATE() 
+                        WHERE Email='{0}'";
+
+        private const string NAME_COL = "UserId";
 
         //Where to redirect to after sign in
         private const string REDIRECT_CNTR = "Admin";
         private const string REDIRECT_ACTN = "Index";
+
+
 
         //Direct the user to Admin Login Page after they click the button
         [AllowAnonymous]
@@ -30,44 +47,51 @@ namespace Currency_Exchange.Controllers
             return View(LOGIN_VIEW);
         }
 
-        [Authorize]
-        public IActionResult Logoff(string returnUrl = null)
-        {
-            HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            if (Url.IsLocalUrl(returnUrl))
-                return Redirect(returnUrl);
-            return RedirectToAction("Login", "Account");
-        }
-
-
         //Checking if user enter the correct credentials
         [AllowAnonymous]
         [HttpPost]
         public IActionResult Login(Login user)
         {
             //If user enter wrongly, give error message and return view on the same login page
-            if (!AuthenticateUser(user.UserID, user.Password,
-                                  out ClaimsPrincipal principal))
+            if (!AuthenticateUser(user.UserID, user.Password, out ClaimsPrincipal principal))
             {
                 ViewData["Message"] = "Incorrect User ID or Password";
-                return View();
+                ViewData["MsgType"] = "warning";
+                return View(LOGIN_VIEW);
             }
 
             //If user enter correctly, sign them in
             else
             {
                 HttpContext.SignInAsync(
-                   CookieAuthenticationDefaults.AuthenticationScheme,
-                   principal);
+                   AUTHSCHEME,
+                   principal,
+               new AuthenticationProperties
+               {
+                   IsPersistent = false
+               });
+
+                // Update the Last Login Timestamp of the User
+                DBUtl.ExecSQL(LASTLOGIN_SQL, user.UserID);
+
                 if (TempData["returnUrl"] != null)
                 {
                     string returnUrl = TempData["returnUrl"].ToString();
                     if (Url.IsLocalUrl(returnUrl))
                         return Redirect(returnUrl);
                 }
-                //Redirect user to Admin/Index after successful login
+
                 return RedirectToAction(REDIRECT_ACTN, REDIRECT_CNTR);
             }
+        }
+
+        [Authorize]
+        public IActionResult Logoff(string returnUrl = null)
+        {
+            HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            if (Url.IsLocalUrl(returnUrl))
+                return Redirect(returnUrl);
+            return RedirectToAction("Index", "HomePage");
         }
 
         //If user is not authorized to view this page, throw them to forbidden page
@@ -81,26 +105,20 @@ namespace Currency_Exchange.Controllers
         private bool AuthenticateUser(string uid, string pw,
                                          out ClaimsPrincipal principal)
         {
-
             principal = null;
 
-            string sql = @"SELECT * FROM CurrencyRate
-                         WHERE UserId = '{0}' AND UserPw = HASHBYTES('SHA1', '{1}')";
-            ViewData["sql"] = sql;
-
-            //Checking in the database if such user exist
-            DataTable ds = DBUtl.GetTable(sql, uid, pw);
+            DataTable ds = DBUtl.GetTable(LOGIN_SQL, uid, pw);
             if (ds.Rows.Count == 1)
             {
                 principal =
                    new ClaimsPrincipal(
                       new ClaimsIdentity(
                          new Claim[] {
-                        new Claim(ClaimTypes.NameIdentifier, uid),
-                        new Claim(ClaimTypes.Name, ds.Rows[0]["FullName"].ToString()),
-                        new Claim(ClaimTypes.Role, ds.Rows[0]["UserRole"].ToString())
-                         },
-                         CookieAuthenticationDefaults.AuthenticationScheme));
+                        new Claim(ClaimTypes.NameIdentifier, ds.Rows[0]["admin_email"].ToString()),
+                        new Claim(ClaimTypes.Name, ds.Rows[0][NAME_COL].ToString()),
+                         }, "Basic"
+                      )
+                   );
                 return true;
             }
             return false;

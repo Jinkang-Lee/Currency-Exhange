@@ -10,12 +10,15 @@ namespace Currency_Exchange.Models
     public class Staff
     {
         [Key]
-        public int Id { get; set; }
+        public string Id { get; set; }
 
-        public string StaffName { get; set; }
+        public string UserId { get; set; }
 
-        public string StaffEmail { get; set; }
+        public string UserPw { get; set; }
 
-        public int StaffPhNum { get; set; }
+        public string FullName { get; set; }
+
+        
+        public int Ph_Num { get; set; }
     }
 }

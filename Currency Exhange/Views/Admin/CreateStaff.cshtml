@@ -33,18 +33,24 @@
             <div class="row">
                 <form method="post" action="/Admin/CreateStaff">
                     <div class="form-group">
-                        <input asp-for="StaffName" style="font-size: 20px; margin-top: 80px;" class="form-control" placeholder="Staff Name" />
-                        <span asp-validation-for="StaffName" class="text-danger"></span>
+                        <input asp-for="UserId" style="font-size: 20px; margin-top: 80px;" class="form-control" placeholder="Staff User ID" />
+                        <span asp-validation-for="UserId" class="text-danger"></span>
                     </div>
 
                     <div class="form-group">
-                        <input asp-for="StaffEmail" style="font-size: 20px; margin-top: 10px;" class="form-control" placeholder="Staff Email" />
-                        <span asp-validation-for="StaffEmail" class="text-danger"></span>
+                        <input asp-for="UserPw" style="font-size: 20px; margin-top: 80px;" class="form-control" placeholder="Staff Password" />
+                        <span asp-validation-for="UserPw" class="text-danger"></span>
                     </div>
 
                     <div class="form-group">
-                        <input asp-for="StaffPhNum" style="font-size: 20px; margin-top: 10px;" class="form-control" placeholder="Staff Phone" />
-                        <span asp-validation-for="StaffPhNum" class="text-danger"></span>
+                        <input asp-for="FullName" style="font-size: 20px; margin-top: 80px;" class="form-control" placeholder="Staff Name" />
+                        <span asp-validation-for="FullName" class="text-danger"></span>
+                    </div>
+
+
+                    <div class="form-group">
+                        <input asp-for="Ph_Num" style="font-size: 20px; margin-top: 10px;" class="form-control" placeholder="Staff Phone" />
+                        <span asp-validation-for="Ph_Num" class="text-danger"></span>
                     </div>
 
 

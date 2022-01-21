@@ -19,9 +19,26 @@ namespace Currency_Exchange
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc(options => options.EnableEndpointRouting = false);
-            services.AddAuthentication(
-                         CookieAuthenticationDefaults.AuthenticationScheme)
-                    .AddCookie(options => { options.LoginPath = "/Account /Login/"; });
+
+            // adding authentication handler for Account using authentication scheme "AdminAccount"
+            services
+               .AddAuthentication("AdminAccount")
+               .AddCookie("AdminAccount",
+                   options =>
+                   {
+                       options.LoginPath = "/AdminAccount/Login/";
+                       options.AccessDeniedPath = "/AdminAccount/Forbidden/";
+                   });
+
+            // adding authentication handler for Account using authentication scheme "StaffAccount"
+            services
+               .AddAuthentication("StaffAccount")
+               .AddCookie("StaffAccount",
+                   options =>
+                   {
+                       options.LoginPath = "/StaffAccount/Login/";
+                       options.AccessDeniedPath = "/StaffAccount/Forbidden/";
+                   });
 
         }
 
@@ -32,9 +49,16 @@ namespace Currency_Exchange
             {
                 app.UseDeveloperExceptionPage();
             }
+
             app.UseStaticFiles();
             app.UseAuthentication();
-            app.UseMvcWithDefaultRoute();
+            app.UseMvc(
+               routes =>
+               {
+                   routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Home}/{action=Index}/{id?}");
+               });
         }
     }
 }
