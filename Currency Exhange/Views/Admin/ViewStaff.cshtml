@@ -45,6 +45,7 @@
             <thead class="thead-dark">
                 <!--Title header for the tables-->
                 <tr>
+                    <th>Employee ID</th>
                     <th>User ID</th>
                     <th>Staff Password</th>
                     <th>Staff Name</th>
@@ -59,6 +60,7 @@
                 <!--Contents inside the table-->
                 <!--The row staff_id, staff_email and other part follows the name you put in database -->
         <tr>
+            <td>@row["Employee_Id"]</td>
             <td>@row["UserId"]</td>
             <td>**********</td>
             <td>@row["FullName"]</td>
@@ -68,12 +70,12 @@
             <td>
                 <a asp-controller="Admin"
                    asp-action="EditStaff"
-                   asp-route-id="@row["UserId"]">Edit</a>
+                   asp-route-id="@row["Employee_Id"]">Edit</a>
 
                 <!--This is the part where you can DELETE staff details-->
                 <a asp-controller="Admin"
                    asp-action="DeleteStaff"
-                   asp-route-id="@row["UserId"]" onclick="return confirmDelete()">Delete</a>
+                   asp-route-id="@row["Employee_Id"]" onclick="return confirmDelete()">Delete</a>
             </td>
         </tr>
             }

@@ -22,7 +22,7 @@ namespace Currency_Exchange.Controllers
         //View all the staff in the database
         public IActionResult ViewStaff()
         {
-            DataTable dt = DBUtl.GetTable("SELECT UserId, FullName, Ph_Num FROM Staff");
+            DataTable dt = DBUtl.GetTable("SELECT Employee_Id, UserId, FullName, Ph_Num FROM Staff");
             return View("ViewStaff", dt.Rows);
         }
 
@@ -60,12 +60,12 @@ namespace Currency_Exchange.Controllers
         }
 
 
-
+        
         //HTTP GET UPDATE STAFF - NOT DONE
-        public IActionResult EditStaff(string UserId)
+        public IActionResult EditStaff(int id)
         {
             //SQL Statement to find the staff that is selected to edit
-            List<Staff> list = DBUtl.GetList<Staff>("SELECT * FROM Staff WHERE UserId = '{0}'", UserId);
+            List<Staff> list = DBUtl.GetList<Staff>("SELECT Employee_Id, UserId, FullName, Ph_Num FROM Staff WHERE Employee_Id = {0}", id);
             Staff model = null;
             
             //If the number of items in the list is 1
@@ -73,7 +73,7 @@ namespace Currency_Exchange.Controllers
             {
                 //Display the first item in the list
                 model = list[0];
-                return View("ViewStaff", model);
+                return View("EditStaff", model);
             }
             //Else throw error message
             else
@@ -86,7 +86,6 @@ namespace Currency_Exchange.Controllers
 
         //HTTP POST FOR EDITING STAFF IN THE LIST
         [HttpPost]
-        [Authorize]
         public IActionResult EditStaffPost(Staff staff)
         {
             //If something goes wrong, throw error message
@@ -100,9 +99,9 @@ namespace Currency_Exchange.Controllers
             //Else execute the UPDATE statement to update staff details
             else
             {
-                string update = @"UPDATE Staff SET UserPw=HASHBYTES('SHA1','{0}'), FullName='{1}', ph_num={2} WHERE UserId='{3}'";
+                string update = @"UPDATE Staff SET UserId='{0}', FullName='{1}', ph_num={2} WHERE Employee_Id={3}";
 
-                int res = DBUtl.ExecSQL(update, staff.UserPw, staff.FullName, staff.Ph_Num, staff.UserId);
+                int res = DBUtl.ExecSQL(update, staff.UserId, staff.FullName, staff.Ph_Num, staff.id);
 
                 if (res == 1)
                 {
@@ -121,10 +120,10 @@ namespace Currency_Exchange.Controllers
         }
 
         //DELETE STAFF
-        public IActionResult DeleteStaff(string UserId)
+        public IActionResult DeleteStaff(int Employee_Id)
         {
-            string select = @"SELECT * FROM Staff WHERE UserId='{0}'";
-            DataTable ds = DBUtl.GetTable(select, UserId);
+            string select = @"SELECT * FROM Staff WHERE Employee_Id={0}";
+            DataTable ds = DBUtl.GetTable(select, Employee_Id);
             if (ds.Rows.Count != 1)
             {
                 TempData["Message"] = "Staff does not exist";
@@ -132,8 +131,8 @@ namespace Currency_Exchange.Controllers
             }
             else
             {
-                string delete = "DELETE FROM Staff WHERE UserId='{0}'";
-                int res = DBUtl.ExecSQL(delete, UserId);
+                string delete = "DELETE FROM Staff WHERE Employee_Id={0}";
+                int res = DBUtl.ExecSQL(delete, Employee_Id);
                 if (res == 1)
                 {
                     TempData["Message"] = "Staff Deleted";

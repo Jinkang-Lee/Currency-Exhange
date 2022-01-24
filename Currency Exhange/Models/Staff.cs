@@ -10,7 +10,7 @@ namespace Currency_Exchange.Models
     public class Staff
     {
         [Key]
-        public string Id { get; set; }
+        public int id { get; set; }
 
         public string UserId { get; set; }
 
