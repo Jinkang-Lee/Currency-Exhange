@@ -4,9 +4,9 @@
 <script>
         //Double confirm with user if they really want to delete this Staff
         function confirmDelete() {
-            if (confirm("Are you sure you want to delete?") == false) {
-                event.preventDefault(); //Not working in IE
-                event.stopPropagation(); //Not working in Firefox
+            if (confirm("Are you sure you want to delete this Staff?") == false) {
+                event.preventDefault();
+                event.stopPropagation();
                 return false;
             }
         }
