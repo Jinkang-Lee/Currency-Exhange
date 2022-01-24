@@ -1,0 +1,43 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Currency Exchange</title> <!-- style sheets references -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <link href="~/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" /> <!-- script files references -->
+    <script src="~/lib/jquery/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/lib/jquery/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery/jquery.validate.unobtrusive.min.js"></script>
+</head>
+<body>
+
+    <p>SUCCESSFULLY LOGIN AS Staff</p>
+
+    @*Logout Button*@
+    <div class="row">
+        <div class="col-md-12 text-right" id="third-row-btn">
+            <form method="get" action="/StaffAccount/Logoff">
+
+                <button class="btn btn-primary btn-toolbar btn-lg offset-md-10">Logout</button>
+
+            </form>
+        </div>
+    </div>
+
+    <!--Button to View Staffs-->
+    <div class="row">
+        <div class="col-md-12 text-right" id="third-row-btn">
+            <form method="get" action="/Admin/ViewStaff">
+
+                <button class="btn btn-primary btn-toolbar btn-lg offset-md-10">View All Staff</button>
+
+            </form>
+        </div>
+    </div>
+</body>
+</html>
+
