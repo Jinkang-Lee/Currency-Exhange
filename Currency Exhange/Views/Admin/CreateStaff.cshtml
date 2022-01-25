@@ -27,34 +27,54 @@
 
         <div class="container" id="Create-Staff-Container">
 
-            
+
             <!--THESE 3 FIELDS ARE FOR ADMIN TO FILL IN WHEN THEY WANNA CREATE A NEW STAFF-->
-            <h1>Create Staff</h1>
+            <h1 class="text-center">Create Staff</h1>
+
             <div class="row">
-                <form method="post" action="/Admin/CreateStaff">
+                <form method="post" action="/Admin/Index" class="col-sm-5">
+                    <input type="submit" class="btn btn-lg btn-primary" value="Back" />
+                </form>
+            </div>
+
+
+            <div class="row text-center">
+                <form method="post" action="/Admin/CreateStaff" class="col-sm-5">
                     <div class="form-group">
-                        <input asp-for="StaffName" style="font-size: 20px; margin-top: 80px;" class="form-control" placeholder="Staff Name" />
-                        <span asp-validation-for="StaffName" class="text-danger"></span>
+                        <input asp-for="UserId" style="font-size: 20px; margin-top: 70px; " class="form-control" placeholder="Staff User ID" />
+                        <span asp-validation-for="UserId" class="text-danger"></span>
                     </div>
 
                     <div class="form-group">
-                        <input asp-for="StaffEmail" style="font-size: 20px; margin-top: 10px;" class="form-control" placeholder="Staff Email" />
-                        <span asp-validation-for="StaffEmail" class="text-danger"></span>
+                        <input asp-for="UserPw" style="font-size: 20px; margin-top: 5px;" class="form-control" placeholder="Staff Password" />
+                        <span asp-validation-for="UserPw" class="text-danger"></span>
                     </div>
 
                     <div class="form-group">
-                        <input asp-for="StaffPhNum" style="font-size: 20px; margin-top: 10px;" class="form-control" placeholder="Staff Phone" />
-                        <span asp-validation-for="StaffPhNum" class="text-danger"></span>
+                        <input asp-for="FullName" style="font-size: 20px; margin-top: 5px;" class="form-control" placeholder="Staff Name" />
+                        <span asp-validation-for="FullName" class="text-danger"></span>
+                    </div>
+
+
+                    <div class="form-group">
+                        <input asp-for="Ph_Num" style="font-size: 20px; margin-top: 5px;" class="form-control" placeholder="Staff Phone" />
+                        <span asp-validation-for="Ph_Num" class="text-danger"></span>
                     </div>
 
 
                     <!--THIS IS THE SUBMIT BUTTON THEY CLICK ON TO CREATE NEW STAFF-->
                     <div class="form-group">
-                        <input type="submit" style="margin-left: 200px;" class="btn btn-lg btn-primary" value="Create Staff" />
+                        <input type="submit" class="btn btn-lg btn-primary" value="Create Staff" />
                     </div>
                 </form>
 
+                <div id="top-image" class="col-sm-7">
+                    <img src="~/images/Employee.png" class="img-fluid" />
+                </div>
+
             </div>
+
+
         </div>
     </section>
 
