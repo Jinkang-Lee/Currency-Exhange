@@ -31,7 +31,7 @@ namespace Currency_Exchange.Controllers
            @"UPDATE SRUser SET LastLogin=GETDATE() 
                         WHERE Email='{0}'";
 
-        private const string NAME_COL = "UserId";
+        private const string NAME_COL = "FullName";
 
         //Where to redirect to after sign in
         private const string REDIRECT_CNTR = "Admin";
@@ -114,7 +114,7 @@ namespace Currency_Exchange.Controllers
                    new ClaimsPrincipal(
                       new ClaimsIdentity(
                          new Claim[] {
-                        new Claim(ClaimTypes.NameIdentifier, ds.Rows[0]["admin_email"].ToString()),
+                        new Claim(ClaimTypes.NameIdentifier, ds.Rows[0]["UserId"].ToString()),
                         new Claim(ClaimTypes.Name, ds.Rows[0][NAME_COL].ToString()),
                          }, "Basic"
                       )

@@ -12,44 +12,46 @@
     <script src="~/lib/bootstrap/js/bootstrap.min.js"></script>
     <script src="~/lib/jquery/jquery.validate.min.js"></script>
     <script src="~/lib/jquery/jquery.validate.unobtrusive.min.js"></script>
+
+    <link rel="stylesheet" href="~/css/AdminIndex.css" />
 </head>
+
 <body>
-
-    <p>SUCCESSFULLY LOGIN AS ADMIN</p>
-
     @*Logout Button*@
     <div class="row">
-        <div class="col-md-12 text-right" id="third-row-btn">
+        <div class="col-md-12" id="third-row-btn">
             <form method="get" action="/AdminAccount/Logoff">
 
-                <button class="btn btn-primary btn-toolbar btn-lg offset-md-10">Logout</button>
+                <button class="btn btn-primary btn-toolbar btn-lg">Logout</button>
 
             </form>
         </div>
     </div>
+    <div class="container" id="Index-Container">
 
-    <!--Button to View Staffs-->
-    <div class="row">
-        <div class="col-md-12 text-right" id="third-row-btn">
-            <form method="get" action="/Admin/ViewStaff">
 
-                <button class="btn btn-primary btn-toolbar btn-lg offset-md-10">View All Staff</button>
+        <!--Button to View Staffs-->
+        <div class="row">
+            <div class="col-md-12 text-right" id="third-row-btn">
+                <form method="get" action="/Admin/ViewStaff">
 
-            </form>
+                    <button class="btn btn-primary btn-toolbar btn-lg ">View All Staff</button>
+
+                </form>
+            </div>
+        </div>
+
+        <!--Button to Create Staff-->
+        <div class="row">
+            <div class="col-md-12 text-right" id="third-row-btn">
+                <form method="get" action="/Admin/CreateStaff">
+
+                    <button class="btn btn-primary btn-toolbar btn-lg ">Create New Staff</button>
+
+                </form>
+            </div>
         </div>
     </div>
-
-    <!--Button to Create Staff-->
-    <div class="row">
-        <div class="col-md-12 text-right" id="third-row-btn">
-            <form method="get" action="/Admin/CreateStaff">
-
-                <button class="btn btn-primary btn-toolbar btn-lg offset-md-10">Create New Staff</button>
-
-            </form>
-        </div>
-    </div>
-
 
 </body>
 </html>
