@@ -119,7 +119,7 @@ namespace Currency_Exchange.Controllers
             }
         }
 
-//DELETE STAFF
+        //DELETE STAFF
         public IActionResult DeleteStaff(int id)
         {
             string select = @"SELECT Employee_Id, UserId, FullName, Ph_Num FROM Staff WHERE Employee_Id={0}";

@@ -107,8 +107,7 @@ namespace Currency_Exchange.Controllers
         {
             principal = null;
 
-
-DataTable ds = DBUtl.GetTable(LOGIN_SQL, uid, pw);
+            DataTable ds = DBUtl.GetTable(LOGIN_SQL, uid, pw);
             if (ds.Rows.Count == 1)
             {
                 principal =
