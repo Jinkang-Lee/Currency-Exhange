@@ -18,7 +18,8 @@ namespace Currency_Exchange.Controllers
     {
         //For signing in
         private const string AUTHSCHEME = "StaffAccount";
-
+        
+        
         private const string LOGIN_VIEW = "Login";
 
         //To check sign in credentials
@@ -48,40 +49,36 @@ namespace Currency_Exchange.Controllers
             return View(LOGIN_VIEW);
         }
 
+        [Authorize]
+        public IActionResult Logoff(string returnUrl = null)
+        {
+            HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            if (Url.IsLocalUrl(returnUrl))
+                return Redirect(returnUrl);
+            return RedirectToAction("Login", "Account");
+        }
+
+
         //Checking if user enter the correct credentials
         [AllowAnonymous]
         [HttpPost]
         public IActionResult Login(Login user)
         {
             //If user enter wrongly, give error message and return view on the same login page
-            if (!AuthenticateUser(user.UserID, user.Password, out ClaimsPrincipal principal))
             {
                 ViewData["Message"] = "Incorrect User ID or Password";
-                ViewData["MsgType"] = "warning";
-                return View(LOGIN_VIEW);
             }
 
             //If user enter correctly, sign them in
             else
             {
                 HttpContext.SignInAsync(
-                   AUTHSCHEME,
-                   principal,
-               new AuthenticationProperties
-               {
-                   IsPersistent = false
-               });
-
-                // Update the Last Login Timestamp of the User
-                DBUtl.ExecSQL(LASTLOGIN_SQL, user.UserID);
-
                 if (TempData["returnUrl"] != null)
                 {
                     string returnUrl = TempData["returnUrl"].ToString();
                     if (Url.IsLocalUrl(returnUrl))
                         return Redirect(returnUrl);
                 }
-
                 return RedirectToAction(REDIRECT_ACTN, REDIRECT_CNTR);
             }
         }
@@ -106,20 +103,15 @@ namespace Currency_Exchange.Controllers
         private bool AuthenticateUser(string uid, string pw,
                                          out ClaimsPrincipal principal)
         {
+
             principal = null;
 
-            DataTable ds = DBUtl.GetTable(LOGIN_SQL, uid, pw);
             if (ds.Rows.Count == 1)
             {
                 principal =
                    new ClaimsPrincipal(
                       new ClaimsIdentity(
                          new Claim[] {
-                        new Claim(ClaimTypes.NameIdentifier, ds.Rows[0]["UserId"].ToString()),
-                        new Claim(ClaimTypes.Name, ds.Rows[0][NAME_COL].ToString()),
-                         }, "Basic"
-                      )
-                   );
                 return true;
             }
             return false;
