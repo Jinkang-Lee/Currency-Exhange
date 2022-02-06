@@ -1,11 +1,21 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
 	<PropertyGroup>
 		<TargetFramework>netcoreapp3.0</TargetFramework>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="System.Data.SqlClient" Version="4.7.0" />
+	  <Content Remove="wwwroot\js\country-list.js" />
+	  <Content Remove="wwwroot\js\script.js" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Include="wwwroot\js\country-list.js" />
+	  <None Include="wwwroot\js\script.js" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="System.Data.SqlClient" Version="4.8.3" />
 	</ItemGroup>
 
 </Project>

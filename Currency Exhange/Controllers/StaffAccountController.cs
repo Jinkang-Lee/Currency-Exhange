@@ -13,34 +13,34 @@ using UserLogin.Models;
 
 namespace Currency_Exchange.Controllers
 {
-    [Authorize(AuthenticationSchemes = "AdminAccount")]
-    public class AdminAccountController : Controller
+    [Authorize(AuthenticationSchemes = "StaffAccount")]
+    public class StaffController : Controller
     {
         //For signing in
-        private const string AUTHSCHEME = "AdminAccount";
+        private const string AUTHSCHEME = "StaffAccount";
 
         private const string LOGIN_VIEW = "Login";
 
         //To check sign in credentials
         private const string LOGIN_SQL =
-           @"SELECT * FROM CurrencyRate
+           @"SELECT * FROM Staff
             WHERE UserId = '{0}' 
               AND UserPw = HASHBYTES('SHA1', '{1}')";
 
         //For checking last login 
         private const string LASTLOGIN_SQL =
            @"UPDATE SRUser SET LastLogin=GETDATE() 
-                        WHERE Email='{0}'";
+                        WHERE Ph_Num='{0}'";
 
         private const string NAME_COL = "FullName";
 
         //Where to redirect to after sign in
-        private const string REDIRECT_CNTR = "Admin";
+        private const string REDIRECT_CNTR = "Staff";
         private const string REDIRECT_ACTN = "Index";
 
 
 
-        //Direct the user to Admin Login Page after they click the button
+        //Direct the user to Staff Login Page after they click the button
         [AllowAnonymous]
         public IActionResult Login(string returnUrl = null)
         {
