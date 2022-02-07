@@ -1,3 +1,5 @@
+
+//List of countries and their currencies 
 let country_list = {
     "AED" : "AE",
     "AFN" : "AF",
